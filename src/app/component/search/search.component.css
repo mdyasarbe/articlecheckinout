@@ -1,0 +1,15 @@
+.input-row {
+    height: 40px;
+    margin: 15px;
+}
+
+.input-row .search-button {
+    top: -10px;
+}
+
+.mat-grid-tile-content {
+    display: grid;
+    align-items: baseline !important;
+    justify-content: center;
+    height: 100%;
+}

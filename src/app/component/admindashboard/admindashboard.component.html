@@ -1,0 +1,29 @@
+
+<div id="home">
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start" style="height: 100%">
+        <mat-tab style="position: sticky;top: 0;">
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">search</mat-icon>
+                Search
+            </ng-template>
+            <app-search></app-search>
+        </mat-tab>
+    
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">playlist_add</mat-icon>
+                CheckIn
+            </ng-template>
+            <app-checkin></app-checkin>
+        </mat-tab>
+    
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">logout</mat-icon>
+                Checkout
+            </ng-template>
+    
+            <app-checkout></app-checkout>
+        </mat-tab>
+    </mat-tab-group>
+</div>

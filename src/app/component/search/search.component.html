@@ -1,0 +1,53 @@
+<div class="input-row">
+    <mat-grid-list cols="4" rowHeight="60px">
+        <mat-grid-tile colspan="3">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Search Article</mat-label>
+                <input matInput placeholder="BX2554" (keyup.enter)="searchArticle()" [(ngModel)]="articleId">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <button mat-flat-button type="button" class="search-button" (click)="searchArticle()">Search</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="No">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element;let i = index"> {{i+1}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Barcode">
+            <th mat-header-cell *matHeaderCellDef> Barcode </th>
+            <td mat-cell *matCellDef="let element"> {{element.barcode}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="ArticleCode">
+            <th mat-header-cell *matHeaderCellDef> Article Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.articleCode}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Count">
+            <th mat-header-cell *matHeaderCellDef> Count </th>
+            <td mat-cell *matCellDef="let element"> {{element.count}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="3">{{showNoData() ? "No data" : ""}}</td>
+        </tr>
+       
+    </table>
+    <tr class="mat-row" *ngIf="loading">
+        <td class="mat-cell" colspan="3">Loading...</td>
+    </tr>
+    <mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>

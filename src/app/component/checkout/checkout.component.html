@@ -1,0 +1,32 @@
+<div class="container">
+	<h2>Add Article</h2>
+	<form [formGroup]="myForm" class="form" (ngSubmit)="onSubmit()">
+		<div class="form-group">
+			<mat-form-field style="width: 80%;">
+				<mat-label>Bar Code Number</mat-label>
+				<input matInput class="form-control" matInput formControlName="barcode"
+					[ngClass]="{ 'is-invalid': submitted && f.barcode.errors }" />
+					
+				<div *ngIf="submitted && f.barcode.errors" class="invalid-feedback">
+					<div *ngIf="f.barcode.errors.required">Barcode Number is required</div>
+				</div>
+			</mat-form-field>
+		</div>
+		<div class="form-group">
+			<mat-form-field style="width: 80%;">
+				<mat-label>Article Code:</mat-label>
+				<input matInput class="form-control" matInput formControlName="articleCode">
+			</mat-form-field>
+		</div>
+		<div class="form-group">
+			<mat-form-field style="width: 80%;">
+				<mat-label>Box Count:</mat-label>
+				<input matInput class="form-control" type="number" formControlName="count">
+			</mat-form-field>
+		</div>
+		<button mat-flat-button type="submit">Add Article</button>
+		<!-- </div> -->
+	</form>
+
+	
+</div>
