@@ -7,3 +7,23 @@
 .form-group{
     width: 80%;
 }
+
+.firstline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .firstline h2 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .firstline button {
+    margin-left: auto;
+    height: 40px;
+  }

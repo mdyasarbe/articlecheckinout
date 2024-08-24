@@ -18,6 +18,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table' 
 import { AngularFireModule } from '@angular/fire/compat';
+import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './component/login/login.component';
 import { SearchComponent } from './component/search/search.component';
@@ -29,6 +30,9 @@ import { AdmindashboardComponent } from './component/admindashboard/admindashboa
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { AuthGuardService } from './shared/authguard.service';
+import { ScannerComponent } from './component/scanner/scanner.component';
+import { SpinnerComponent } from './component/spinner/spinner.component';
+import { DialogconfirmComponent } from './component/dialogconfirm/dialogconfirm.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +42,9 @@ import { AuthGuardService } from './shared/authguard.service';
     CheckoutComponent,
     AdmindashboardComponent,
     DashboardComponent,
+    ScannerComponent,
+    SpinnerComponent,
+    DialogconfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +61,8 @@ import { AuthGuardService } from './shared/authguard.service';
     MatPaginatorModule,
     MatPaginator,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [
     provideClientHydration(),

@@ -64,7 +64,7 @@ export class LoginComponent {
       error: error => {
         this.isRecoveringPassword = false;
         this.snackBar.open(error.message, "OK", {
-          duration: 5000
+          duration: 2000
         });
       }
     })

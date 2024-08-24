@@ -55,6 +55,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   showLoading() {}
   showNoData() {
-    return !this.loading && !this.dbData;
+    return !this.loading && (!this.dbData || this.dbData.length == 0);
   }
 }

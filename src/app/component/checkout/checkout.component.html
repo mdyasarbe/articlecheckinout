@@ -1,5 +1,12 @@
 <div class="container">
-	<h2>Add Article</h2>
+	<div class="firstline">
+		<h2>Checkout Article</h2> 
+		<button mat-fab extended color="red" (click)="deleteAll()" style="background-color: red;">
+			<mat-icon>delete</mat-icon>
+			Delete All Data
+		  </button>
+	</div>
+	
 	<form [formGroup]="myForm" class="form" (ngSubmit)="onSubmit()">
 		<div class="form-group">
 			<mat-form-field style="width: 80%;">
@@ -27,6 +34,6 @@
 		<button mat-flat-button type="submit">Add Article</button>
 		<!-- </div> -->
 	</form>
-
+	
 	
 </div>

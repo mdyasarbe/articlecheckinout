@@ -13,3 +13,17 @@
     justify-content: center;
     height: 100%;
 }
+.no-data-row td {
+    text-align: center;
+    padding: 20px; /* Optional: Add some padding for better spacing */
+  }
+  
+  /* Center the content within the div */
+  .no-data-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.2rem; /* Optional: Adjust font size */
+    color: #757575; /* Optional: Change text color */
+  }

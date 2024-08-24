@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Article } from '../../model/article';
 import { DataService } from '../../shared/data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogconfirmComponent } from '../dialogconfirm/dialogconfirm.component';
 
 @Component({
   selector: 'app-checkout',
@@ -12,7 +14,7 @@ export class CheckoutComponent {
   myForm!: FormGroup;
   submitted = false;
 
-  constructor(private fb: FormBuilder,private dataService: DataService) {
+  constructor(private fb: FormBuilder,private dataService: DataService,private dialog: MatDialog) {
     // this.createForm();
     // this.initForm();
     this.buildForm();
@@ -95,5 +97,28 @@ export class CheckoutComponent {
     }
     let article: Article = this.myForm.value;
     this.dataService.addArticle(article);
+  }
+  deleteAll(){
+    this.openDeleteConfirmationDialog()
+  }
+
+  openDeleteConfirmationDialog() {
+    const dialogRef = this.dialog.open(DialogconfirmComponent, {
+      width: '300px',
+      data: {
+        title: 'Confirm Action',
+        message: `Are sure want to delete all Articles Entry?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // User clicked confirm
+        this.dataService.deleteAllDocuments();
+      } else {
+        // User clicked cancel
+        console.log('Cancelled!');
+      }
+    });
   }
 }

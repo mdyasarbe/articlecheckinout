@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { CheckinComponent } from '../checkin/checkin.component';
 
 @Component({
   selector: 'app-admindashboard',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './admindashboard.component.css'
 })
 export class AdmindashboardComponent {
+  tabfocused = 0;
 
+  
+  tabClicked(event:any){
+    this.tabfocused = event.index;
+  
+  }
 }

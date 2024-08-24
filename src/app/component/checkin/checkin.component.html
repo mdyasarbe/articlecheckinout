@@ -1,12 +1,16 @@
 <div class="container">
-	<h2>Add Article</h2>
+
+	<div class="firstline">
+		<h2>Add Article</h2>
+	</div>
+	<app-scanner [loadScanner]="loadScanner()" (barcode)="barCodeScanned($event)"></app-scanner>
 	<form [formGroup]="myForm" class="form" (ngSubmit)="onSubmit()">
 		<div class="form-group">
 			<mat-form-field style="width: 80%;">
 				<mat-label>Bar Code Number</mat-label>
 				<input matInput class="form-control" matInput formControlName="barcode"
 					[ngClass]="{ 'is-invalid': submitted && f.barcode.errors }" />
-					
+
 				<div *ngIf="submitted && f.barcode.errors" class="invalid-feedback">
 					<div *ngIf="f.barcode.errors.required">Barcode Number is required</div>
 				</div>
@@ -28,5 +32,5 @@
 		<!-- </div> -->
 	</form>
 
-	
+
 </div>

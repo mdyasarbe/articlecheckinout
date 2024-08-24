@@ -1,0 +1,26 @@
+/* CSS for the parent container */
+#reader {
+    width: 100%; /* Full width of the parent container */
+    max-width: 500px; /* Maximum width of the video feed */
+    margin: 0 auto; /* Center the video feed horizontally */
+    border: 2px solid #ccc; /* Optional border */
+    border-radius: 8px; /* Optional rounded corners */
+    overflow: hidden; /* Ensure the video stays within bounds */
+  }
+  
+  /* Style for the video element inside the scanner */
+  #reader video {
+    width: 100%; /* Make the video feed fill the container */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  /* Optional: Style the scanning box (qrbox) */
+  #reader .qr-box {
+    width: 250px; /* Width of the scanning box */
+    height: 250px; /* Height of the scanning box */
+    border: 2px dashed #ff0000; /* Red dashed border for the scanning box */
+    position: absolute; /* Position it absolutely within the container */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the size of the box */
+  }

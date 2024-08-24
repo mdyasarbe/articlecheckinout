@@ -1,6 +1,6 @@
 
 <div id="home">
-    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start" style="height: 100%">
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start" style="height: 100%" selectedIndex="0" (selectedTabChange)="tabClicked($event)">
         <mat-tab style="position: sticky;top: 0;">
             <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon">search</mat-icon>
@@ -14,7 +14,7 @@
                 <mat-icon class="example-tab-icon">playlist_add</mat-icon>
                 CheckIn
             </ng-template>
-            <app-checkin></app-checkin>
+            <app-checkin [tabFocused]="tabfocused"></app-checkin>
         </mat-tab>
     
         <mat-tab>
