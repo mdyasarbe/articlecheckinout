@@ -48,6 +48,7 @@ export class ScannerComponent implements OnChanges {
   }
 
   onScanSuccess(decodedText: string) {
+    this.html5QrCodeScanner.pause();
     this.openConfirmationDialog(decodedText);
 
   }
@@ -74,6 +75,7 @@ export class ScannerComponent implements OnChanges {
       } else {
         // User clicked cancel
         console.log('Cancelled!');
+        this.html5QrCodeScanner.resume();
       }
     });
   }

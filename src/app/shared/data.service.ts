@@ -94,7 +94,8 @@ export class DataService {
 
   // delete article
   async deleteArticle(article: Article) {
-    return await deleteDoc(doc(this.firestore, 'Article', article.barcode));
+    debugger;
+    return await deleteDoc(doc(this.firestore, 'Articles', article.barcode));
   }
 
   // update article
@@ -208,7 +209,11 @@ export class DataService {
       next: (res) => {
         if (res && res.length > 0) {
           res.forEach((e) => {
-            this.deleteArticle(e);
+            this.deleteArticle(e).then((e)=>{
+              console.log(e);
+            }).catch(err=>{
+              console.error(err);
+            });
           });
         }
         this.spinnerService.hide();

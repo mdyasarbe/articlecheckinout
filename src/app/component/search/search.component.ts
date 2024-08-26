@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -10,7 +10,8 @@ import { Article, getArticleObjectFromDB } from '../../model/article';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
-export class SearchComponent implements OnInit, AfterViewInit {
+export class SearchComponent implements OnInit, AfterViewInit, OnChanges {
+  @Input() tabFocused = 0;
   displayedColumns: string[] = ['No', 'Barcode', 'ArticleCode', 'Count'];
   dataSource: MatTableDataSource<Article>;
   dbData: Article[] = [];
@@ -26,11 +27,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
   constructor(private dataService: DataService) {}
   ngOnInit(): void {
     this.getAllArticle(null, null);
-    console.log(this.dbData);
     this.dataSource = new MatTableDataSource<Article>(this.dbData);
-    console.log(this.dataSource);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    const log: string[] = [];
+    if (changes['tabFocused'].currentValue == 0) {
+      this.getAllArticle(null, null);
+    }
+  }
   getAllArticle(barcode: string | null, articleID: string | null) {
     this.loading = true;
     let articles = this.dataService.getArticle(barcode, articleID);

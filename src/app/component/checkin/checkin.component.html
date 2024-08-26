@@ -19,7 +19,7 @@
 		<div class="form-group">
 			<mat-form-field style="width: 80%;">
 				<mat-label>Article Code:</mat-label>
-				<input matInput class="form-control" matInput formControlName="articleCode">
+				<input matInput class="form-control" matInput (focusout)="checkArticle()" formControlName="articleCode">
 			</mat-form-field>
 		</div>
 		<div class="form-group">

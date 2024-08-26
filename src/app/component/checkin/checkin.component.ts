@@ -29,13 +29,10 @@ export class CheckinComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     const log: string[] = [];
-    for (const propName in changes) {
-      console.log(changes);
-      if (changes[propName].currentValue == 1) {
-        this.checkinTabFocussed = true;
-      } else {
-        this.checkinTabFocussed = false;
-      }
+    if (changes['tabFocused'].currentValue == 1) {
+      this.checkinTabFocussed = true;
+    } else {
+      this.checkinTabFocussed = false;
     }
   }
 
@@ -54,7 +51,7 @@ export class CheckinComponent implements OnChanges {
     this.myForm = this.fb.group({
       barcode: ['', [Validators.required, Validators.minLength(6)]],
       articleCode: ['', [Validators.required, Validators.minLength(4)]],
-      count: ['', [Validators.required, Validators.min(1)]],
+      count: [1, [Validators.required, Validators.min(1)]],
       // address: this.fb.group({
       //   street: '',
       //   city: '',
@@ -99,6 +96,26 @@ export class CheckinComponent implements OnChanges {
     this.dataService.getArticle(barcode, null).subscribe({
       next: (e) => {
         console.log(e[0].articleCode);
+        this.myForm.controls['barcode'].setValue(e[0].barcode);
+        this.myForm.controls['articleCode'].setValue(e[0].articleCode);
+        this.myForm.controls['count'].setValue(e[0].count);
+
+        this.spinnerService.hide();
+      },
+      error: (e) => {
+        this.snackBar.open(e.message, 'OK', {
+          duration: 2000,
+        });
+
+        this.spinnerService.hide();
+      },
+    });
+  }
+  checkArticle() {
+    this.spinnerService.show();
+    let articleCode = this.myForm.controls['articleCode'].value;
+    this.dataService.getArticle(null, articleCode).subscribe({
+      next: (e) => {
         this.myForm.controls['barcode'].setValue(e[0].barcode);
         this.myForm.controls['articleCode'].setValue(e[0].articleCode);
         this.myForm.controls['count'].setValue(e[0].count);
