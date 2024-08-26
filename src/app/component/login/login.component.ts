@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
+  MatSnackBar
 } from '@angular/material/snack-bar';
 import { AuthService } from '../../shared/auth.service';
 
@@ -47,26 +45,5 @@ export class LoginComponent {
         })
       }
     });
-  }
-
-  recoverPassword() {
-    this.isRecoveringPassword = true;
-
-    this.authenticationService.recoverPassword(
-      this.form.value.email
-    ).subscribe({
-      next: () => {
-        this.isRecoveringPassword = false;
-        this.snackBar.open("You can recover your password in your email account.", "OK", {
-          duration: 5000
-        });
-      },
-      error: error => {
-        this.isRecoveringPassword = false;
-        this.snackBar.open(error.message, "OK", {
-          duration: 2000
-        });
-      }
-    })
   }
 }

@@ -1,16 +1,13 @@
 import {
-  AfterViewChecked,
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { DialogconfirmComponent } from '../dialogconfirm/dialogconfirm.component';
 @Component({
   selector: 'app-scanner',
@@ -39,10 +36,10 @@ export class ScannerComponent implements OnChanges {
     this.html5QrCodeScanner = new Html5QrcodeScanner(
       'reader',
       {
-        fps: 1,
-        qrbox: { width: 450, height: 250 }, // Optional, if you want bounded box UI
+        fps: 30,
+        qrbox: { width: 250, height: 150 }, // Optional, if you want bounded box UI
         aspectRatio: 1.7778,
-        showTorchButtonIfSupported : true
+        showTorchButtonIfSupported : true,
       },
       /* verbose= */ false
     );
@@ -51,15 +48,13 @@ export class ScannerComponent implements OnChanges {
   }
 
   onScanSuccess(decodedText: string) {
-
-    console.log(`Scanned code: ${decodedText}`);
     this.openConfirmationDialog(decodedText);
 
-    console.log(`Event emitted`);
   }
   onScanFailure(error) {
     // handle scan failure, usually better to ignore and keep scanning.
     // for example:
+    //console.error(error)
   }
   openConfirmationDialog(decodedText: string) {
     const dialogRef = this.dialog.open(DialogconfirmComponent, {
@@ -74,6 +69,8 @@ export class ScannerComponent implements OnChanges {
       if (result) {
         // User clicked confirm
         this.barcode.emit(decodedText);
+        this.html5QrCodeScanner && this.html5QrCodeScanner.clear();
+
       } else {
         // User clicked cancel
         console.log('Cancelled!');

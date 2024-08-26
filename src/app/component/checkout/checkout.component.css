@@ -7,8 +7,18 @@
 .form-group{
     width: 80%;
 }
+.form-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
 
-.firstline {
+.firstline h2 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+.optionButtons, .firstline {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -17,13 +27,12 @@
     box-sizing: border-box;
   }
   
-  .firstline h2 {
+  .optionButtons button:first-child {
     margin: 0;
-    flex-grow: 1;
-    text-align: center;
+    height: 40px;
   }
   
-  .firstline button {
+  .optionButtons button {
     margin-left: auto;
     height: 40px;
   }

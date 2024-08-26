@@ -19,4 +19,8 @@ export class DialogconfirmComponent {
   onCancel(): void {
     this.dialogRef.close(false);
   }
+
+  getColor(){
+    return this.data.type ? this.data.type: "primary"
+  }
 }
