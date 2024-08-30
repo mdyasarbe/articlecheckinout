@@ -4,6 +4,7 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -15,6 +16,7 @@ import { Article, getArticleObjectFromDB } from '../../model/article';
 import { DataService } from '../../shared/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SpinnerService } from '../../shared/spinner.service';
+import { ScannerComponent } from '../scanner/scanner.component';
 //declare var Quagga:any;
 @Component({
   selector: 'app-checkin',
@@ -26,6 +28,7 @@ export class CheckinComponent implements OnChanges {
   submitted = false;
   @Input() tabFocused = 0;
   checkinTabFocussed = false;
+  @ViewChild('scanner') scanner: ScannerComponent;
 
   ngOnChanges(changes: SimpleChanges) {
     const log: string[] = [];
@@ -86,6 +89,7 @@ export class CheckinComponent implements OnChanges {
     }
     let article: Article = this.myForm.value;
     this.dataService.addArticle(article);
+    this.scanner.loadScannerInstance();
   }
   loadScanner() {
     return this.checkinTabFocussed;
@@ -95,10 +99,12 @@ export class CheckinComponent implements OnChanges {
     this.spinnerService.show();
     this.dataService.getArticle(barcode, null).subscribe({
       next: (e) => {
-        console.log(e[0].articleCode);
-        this.myForm.controls['barcode'].setValue(e[0].barcode);
-        this.myForm.controls['articleCode'].setValue(e[0].articleCode);
-        this.myForm.controls['count'].setValue(e[0].count);
+
+        this.myForm.controls['barcode'].setValue(barcode);
+        if (e && e.length > 0) {
+          this.myForm.controls['articleCode'].setValue(e[0].articleCode);
+          this.myForm.controls['count'].setValue(e[0].count);
+        }
 
         this.spinnerService.hide();
       },
@@ -116,9 +122,11 @@ export class CheckinComponent implements OnChanges {
     let articleCode = this.myForm.controls['articleCode'].value;
     this.dataService.getArticle(null, articleCode).subscribe({
       next: (e) => {
-        this.myForm.controls['barcode'].setValue(e[0].barcode);
-        this.myForm.controls['articleCode'].setValue(e[0].articleCode);
-        this.myForm.controls['count'].setValue(e[0].count);
+        if (e && e.length > 0) {
+          this.myForm.controls['barcode'].setValue(e[0].barcode);
+          this.myForm.controls['articleCode'].setValue(e[0].articleCode);
+          this.myForm.controls['count'].setValue(e[0].count);
+        }
 
         this.spinnerService.hide();
       },
@@ -127,6 +135,9 @@ export class CheckinComponent implements OnChanges {
           duration: 2000,
         });
 
+        this.spinnerService.hide();
+      },
+      complete: () => {
         this.spinnerService.hide();
       },
     });

@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+import { Html5QrcodeScanner, Html5QrcodeScannerState, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { DialogconfirmComponent } from '../dialogconfirm/dialogconfirm.component';
 @Component({
   selector: 'app-scanner',
@@ -33,6 +33,16 @@ export class ScannerComponent implements OnChanges {
     }
   }
   loadScannerInstance(){
+    if(this.html5QrCodeScanner){
+      switch (this.html5QrCodeScanner.getState()){
+        case Html5QrcodeScannerState.SCANNING: 
+          return;
+        case Html5QrcodeScannerState.PAUSED:
+          this.html5QrCodeScanner.resume();
+          return;
+      }
+      
+    }
     this.html5QrCodeScanner = new Html5QrcodeScanner(
       'reader',
       {
@@ -44,11 +54,13 @@ export class ScannerComponent implements OnChanges {
       /* verbose= */ false
     );
 
-    this.html5QrCodeScanner.render((res:string)=>this.onScanSuccess(res), this.onScanFailure);
+    this.html5QrCodeScanner.render((res:string)=>this.onScanSuccess(res), (res:string)=>this.onScanFailure(res));
   }
 
   onScanSuccess(decodedText: string) {
-    this.html5QrCodeScanner.pause();
+    if(Html5QrcodeScannerState.SCANNING === this.html5QrCodeScanner.getState()){
+      this.html5QrCodeScanner.pause();
+    }
     this.openConfirmationDialog(decodedText);
 
   }
@@ -70,12 +82,13 @@ export class ScannerComponent implements OnChanges {
       if (result) {
         // User clicked confirm
         this.barcode.emit(decodedText);
-        this.html5QrCodeScanner && this.html5QrCodeScanner.clear();
 
       } else {
         // User clicked cancel
         console.log('Cancelled!');
-        this.html5QrCodeScanner.resume();
+        if(Html5QrcodeScannerState.SCANNING === this.html5QrCodeScanner.getState()){
+          this.html5QrCodeScanner.resume();
+        }
       }
     });
   }
